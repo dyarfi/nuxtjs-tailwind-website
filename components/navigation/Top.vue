@@ -16,7 +16,7 @@
                 <NuxtLink
                   v-for="(item, index) in items"
                   :key="item.slug"
-                  :to="item.slug"
+                  :to="`${item.slug === 'home' ? '/' : item.slug}`"
                   :class="`${
                     index === 0
                       ? `px-3 py-2 text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700`
@@ -30,7 +30,14 @@
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
               <button
-                class="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700"
+                class="
+                  p-1
+                  border-2 border-transparent
+                  text-gray-400
+                  rounded-full
+                  hover:text-white
+                  focus:outline-none focus:text-white focus:bg-gray-700
+                "
                 aria-label="Notifications"
               >
                 <svg
@@ -52,7 +59,15 @@
                 <div>
                   <button
                     id="user-menu"
-                    class="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid"
+                    class="
+                      max-w-xs
+                      flex
+                      items-center
+                      text-sm
+                      rounded-full
+                      text-white
+                      focus:outline-none focus:shadow-solid
+                    "
                     aria-label="User menu"
                     aria-haspopup="true"
                     @click="toggle"
@@ -74,7 +89,15 @@
                 >
                   <div
                     v-show="isOpen"
-                    class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg"
+                    class="
+                      origin-top-right
+                      absolute
+                      right-0
+                      mt-2
+                      w-48
+                      rounded-md
+                      shadow-lg
+                    "
                   >
                     <div
                       class="py-1 rounded-md bg-white shadow-xs"
@@ -84,19 +107,37 @@
                     >
                       <a
                         href="#"
-                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        class="
+                          block
+                          px-4
+                          py-2
+                          text-sm text-gray-700
+                          hover:bg-gray-100
+                        "
                         role="menuitem"
                         >Your Profile</a
                       >
                       <a
                         href="#"
-                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        class="
+                          block
+                          px-4
+                          py-2
+                          text-sm text-gray-700
+                          hover:bg-gray-100
+                        "
                         role="menuitem"
                         >Settings</a
                       >
                       <a
                         href="#"
-                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        class="
+                          block
+                          px-4
+                          py-2
+                          text-sm text-gray-700
+                          hover:bg-gray-100
+                        "
                         role="menuitem"
                         >Sign out</a
                       >
@@ -108,7 +149,16 @@
           </div>
           <div class="-mr-2 flex md:hidden">
             <button
-              class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
+              class="
+                inline-flex
+                items-center
+                justify-center
+                p-2
+                rounded-md
+                text-gray-400
+                hover:text-white hover:bg-gray-700
+                focus:outline-none focus:bg-gray-700 focus:text-white
+              "
               @click="toggle"
             >
               <svg
@@ -145,27 +195,81 @@
         <div class="px-2 pt-2 pb-3 sm:px-3">
           <a
             href="#"
-            class="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700"
+            class="
+              block
+              px-3
+              py-2
+              rounded-md
+              text-base
+              font-medium
+              text-white
+              bg-gray-900
+              focus:outline-none focus:text-white focus:bg-gray-700
+            "
             >Dashboard</a
           >
           <a
             href="#"
-            class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+            class="
+              mt-1
+              block
+              px-3
+              py-2
+              rounded-md
+              text-base
+              font-medium
+              text-gray-400
+              hover:text-white hover:bg-gray-700
+              focus:outline-none focus:text-white focus:bg-gray-700
+            "
             >Team</a
           >
           <a
             href="#"
-            class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+            class="
+              mt-1
+              block
+              px-3
+              py-2
+              rounded-md
+              text-base
+              font-medium
+              text-gray-400
+              hover:text-white hover:bg-gray-700
+              focus:outline-none focus:text-white focus:bg-gray-700
+            "
             >Projects</a
           >
           <a
             href="#"
-            class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+            class="
+              mt-1
+              block
+              px-3
+              py-2
+              rounded-md
+              text-base
+              font-medium
+              text-gray-400
+              hover:text-white hover:bg-gray-700
+              focus:outline-none focus:text-white focus:bg-gray-700
+            "
             >Calendar</a
           >
           <a
             href="#"
-            class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+            class="
+              mt-1
+              block
+              px-3
+              py-2
+              rounded-md
+              text-base
+              font-medium
+              text-gray-400
+              hover:text-white hover:bg-gray-700
+              focus:outline-none focus:text-white focus:bg-gray-700
+            "
             >Reports</a
           >
         </div>
@@ -190,17 +294,49 @@
           <div class="mt-3 px-2">
             <a
               href="#"
-              class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+              class="
+                block
+                px-3
+                py-2
+                rounded-md
+                text-base
+                font-medium
+                text-gray-400
+                hover:text-white hover:bg-gray-700
+                focus:outline-none focus:text-white focus:bg-gray-700
+              "
               >Your Profile</a
             >
             <a
               href="#"
-              class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+              class="
+                mt-1
+                block
+                px-3
+                py-2
+                rounded-md
+                text-base
+                font-medium
+                text-gray-400
+                hover:text-white hover:bg-gray-700
+                focus:outline-none focus:text-white focus:bg-gray-700
+              "
               >Settings</a
             >
             <a
               href="#"
-              class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+              class="
+                mt-1
+                block
+                px-3
+                py-2
+                rounded-md
+                text-base
+                font-medium
+                text-gray-400
+                hover:text-white hover:bg-gray-700
+                focus:outline-none focus:text-white focus:bg-gray-700
+              "
               >Sign out</a
             >
           </div>
