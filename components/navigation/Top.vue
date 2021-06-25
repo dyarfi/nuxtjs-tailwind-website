@@ -214,17 +214,17 @@
 export default {
   props: {
     items: { type: Array, default: () => [] },
-    links: { type: Object, default: null },
+    links: { type: Object, default: null }
   },
   data() {
     return {
-      isOpen: false,
+      isOpen: false
     }
   },
   methods: {
     toggle() {
       this.isOpen = !this.isOpen
-    },
-  },
+    }
+  }
 }
 </script>
