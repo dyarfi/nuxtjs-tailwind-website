@@ -6,14 +6,14 @@ export default {
   head: {
     title: 'nuxtjs-tailwind-website',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: '' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -34,13 +34,13 @@ export default {
     // https://color-mode.nuxtjs.org/#setup
     '@nuxtjs/color-mode',
     // Doc: https://github.com/nuxt-community/date-fns-moduleWith
-    '@nuxtjs/date-fns',
+    '@nuxtjs/date-fns'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // Doc: https://github.com/nuxt/content
-    '@nuxt/content',
+    '@nuxt/content'
   ],
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
@@ -51,18 +51,18 @@ export default {
   content: {
     markdown: {
       prism: {
-        theme: 'prism-themes/themes/prism-material-oceanic.css',
-      },
+        theme: 'prism-themes/themes/prism-material-oceanic.css'
+      }
     },
-    nestedProperties: ['author.name'],
+    nestedProperties: ['author.name']
   },
   // Tailwindcss
-  tailwindcss: {
-    jit: true,
-  },
+  // tailwindcss: {
+  //   jit: true,
+  // },
   // Router
   router: {
-    middleware: 'userAgent',
+    middleware: 'userAgent'
   },
   // Generate routes
   generate: {
@@ -75,7 +75,7 @@ export default {
 
       /* Posts */
       if (posts === null || posts.length === 0) {
-        posts = await $content('blogs').where({ offLink: false }).fetch()
+        posts = await $content('articles').where({ status: 'publish' }).fetch()
       }
 
       /* Post Tags */
@@ -85,15 +85,15 @@ export default {
 
       /* Posts */
       for (const post of posts) {
-        routes.push(`/blog/${post.slug}`)
+        routes.push(`/article/${post.slug}`)
       }
 
       /* Post Tags */
       for (const tag of tags) {
-        routes.push(`/blog/tag/${tag.name.replace(' ', '_')}`)
+        routes.push(`/article/tag/${tag.name.replace(' ', '_')}`)
       }
 
       return routes.sort()
-    },
-  },
+    }
+  }
 }

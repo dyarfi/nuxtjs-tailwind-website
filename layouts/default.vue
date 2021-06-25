@@ -14,9 +14,9 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      storeMenus: (state) => state.menus,
-    }),
-  },
+      storeMenus: (state) => state.menus
+    })
+  }
 }
 </script>
 

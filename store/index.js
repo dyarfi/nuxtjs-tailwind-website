@@ -2,7 +2,7 @@
 const state = () => {}
 // top level getters
 const getters = {
-  getMenus: (state) => state.menus,
+  getMenus: (state) => state.menus
 }
 // top level actions
 const actions = {
@@ -14,17 +14,18 @@ const actions = {
       .sortBy('indexOrder', 'asc')
       .limit(5)
       .fetch()
-      .catch((err) => {
-        error({ statusCode: 404, message: 'Page not found' })
-      })
+    // .catch((err) => {
+    // error({ statusCode: 404, message: 'Page not found' })
+    // console.log(err)
+    // })
     commit('GET_MENUS', menus)
-  },
+  }
 }
 // top level mutations
 const mutations = {
   GET_MENUS(state, payload) {
     state.menus = payload
-  },
+  }
 }
 
 // export store modules
@@ -34,5 +35,5 @@ export default {
   getters,
   actions,
   mutations,
-  modules: {},
+  modules: {}
 }

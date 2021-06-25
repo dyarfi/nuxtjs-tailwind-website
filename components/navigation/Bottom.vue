@@ -21,8 +21,8 @@
 <script>
 export default {
   props: {
-    links: { type: Object, default: null },
-  },
+    links: { type: Object, default: null }
+  }
 }
 </script>
 
