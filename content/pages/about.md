@@ -1,7 +1,7 @@
 ---
 title: About CodeRoad
-description: A Nuxt.js project that you can use for personal website or blogging
-img: https://images.unsplash.com/photo-1580752300992-559f8e0734e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80
+description: An information provider angency for your company
+img: https://images.unsplash.com/photo-1507235071172-438ca6950a8e?utm_medium=medium&w=1440&q=50&auto=format
 alt: nice image
 author:
   name: CodeRoad

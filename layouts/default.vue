@@ -1,64 +1,57 @@
 <template>
   <div>
-    <NavigationTop :items="storeMenus" />
-    <main>
-      <Header />
+    <NavigationTop
+      :items="storeMenu"
+      :class-menu="classMenu"
+      @scroll="handleScroll"
+    />
+    <main class="wrapper theme">
       <Nuxt />
     </main>
-    <Footer />
+    <Footer ref="scrollToMe" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 export default {
+  data() {
+    return {
+      scrollPosition: 0,
+      limitScroll: 150,
+      classMenu: 'bg-gray-200 animate fade-in'
+    }
+  },
   computed: {
     ...mapState({
-      storeMenus: (state) => state.menus
+      storeMenu: (state) => state.menu.data
     })
+  },
+  mounted() {
+    const { handleScroll } = this
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll)
+    // this.classMenu = 'bg-gradient-to-b from-gray-200 animate fade-in'
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll(e) {
+      const { documentElement: html } = document
+
+      const currentScrollPosition = html.scrollTop
+      if (currentScrollPosition > this.limitScroll) {
+        this.classMenu =
+          'bg-gradient-to-b from-gray-200 animate fade-in text-white'
+      } else {
+        this.classMenu = 'bg-gray-200 animate fade-in'
+      }
+      this.scrollPosition = currentScrollPosition
+      // eslint-disable-next-line no-console
+      // console.warn(this.classMenu)
+    }
   }
 }
 </script>
-
-<style lang="postcss">
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-body {
-  background-color: #fff;
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.dark-mode body {
-  background-color: #091a28;
-  color: #ebf4f1;
-  nav {
-    @apply bg-gray-800;
-  }
-  blockquote,
-  figcaption {
-    @apply text-gray-800;
-  }
-}
-
-.sepia-mode body {
-  background-color: #f1e7d0;
-  color: #433422;
-}
-</style>

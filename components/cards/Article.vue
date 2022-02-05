@@ -1,88 +1,112 @@
 <template>
-  <div v-if="items && items.length > 0" class="lg:container mx-auto my-12">
-    <div class="row">
+  <div v-if="items && items.length > 0" class="lg:container mx-auto">
+    <div class="boxed-bottom">
       <div
         v-for="(item, index) in items"
         :key="item.slug"
-        class="col-12 mb-4 shadow-lg hover:shadow-xl"
+        class="boxed-bottom__right"
       >
-        <figure class="md:flex bg-gray-100 p-8 md:p-0" :rel="`card-${index}`">
-          <img
-            class="w-32 h-32 md:w-48 md:h-auto md:rounded-none rounded-full mx-auto bg-gray-200"
-            :src="`${item.img}`"
-            alt=""
-            width="384"
-            height="512"
-          />
-          <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
-            <blockquote>
-              <p class="text-lg font-semibold">
-                {{ item.description }}
-              </p>
-            </blockquote>
-            <figcaption class="font-medium">
-              <div class="text-cyan-600">{{ item.author.name }}</div>
-              <div class="text-gray-500">Posted: {{ item.createdAt }}</div>
-            </figcaption>
+        <div class="boxed-bottom-content xl:space-y-6" :rel="`card-${index}`">
+          <div class="inline-block">
+            <Nuxt-Link
+              :to="{
+                name: 'article-category-slug',
+                params: { slug: item.category }
+              }"
+              class="boxed-bottom-link"
+            >
+              {{ item.category }}
+            </Nuxt-Link>
           </div>
-        </figure>
+          <Nuxt-Link
+            :to="{
+              name: 'article-slug',
+              params: { slug: item.slug }
+            }"
+          >
+            <img
+              :src="item.img"
+              :alt="item.title"
+              class="
+                rounded-xl
+                img-fluid
+                box-shadow-img
+                w-full
+                object-cover
+                h-44
+              "
+            />
+          </Nuxt-Link>
+
+          <h4 class="headline text-muted leading-tight mt-4">
+            <Nuxt-Link
+              :to="{
+                name: 'article-slug',
+                params: { slug: item.slug }
+              }"
+              >{{ item.title }}</Nuxt-Link
+            >
+          </h4>
+          <!-- <div class="flex flex-row my-3 text-sm text-gray-500">
+            <div class="flex-1">
+              <font-awesome-icon :icon="['fa', 'clock']" />
+              {{ $dateFns.format(item.createdAt, 'MMMM dd, yyyy') }}
+            </div>
+            <div class="flex-1">
+              <span class="float-right text-muted">
+                <font-awesome-icon :icon="['fa', 'user']" />
+                <Nuxt-Link :to="`/article/author/${item.author.name}`">
+                  {{ item.author.name }}</Nuxt-Link
+                >
+              </span>
+            </div>
+          </div> -->
+          <p class="text-justify text-sm my-4 xl:my-3">
+            {{ item.description.slice(0, 90) }}...
+          </p>
+          <!-- <div class="text-sm text-gray-500 mt-2 mb-4">
+            <span>
+              <font-awesome-icon :icon="['fa', 'tags']" />
+            </span>
+            <span v-for="(tag, i) in item.tags" :key="i" class="capitalize">              
+              <Nuxt-Link :to="`/article/tag/${tag.replace(' ', '_')}`">
+                {{ tag }}</Nuxt-Link
+              >{{
+                item.tags.length !== 1 && item.tags.length !== i + 1 ? ',' : ''
+              }}
+            </span>
+          </div> -->
+          <div>
+            <Nuxt-Link
+              :to="{
+                name: 'article-slug',
+                params: { slug: item.slug }
+              }"
+              class="btn btn-sm btn-default btn-hidden text-muted"
+              ><span class="underline hover:no-underline">read more</span>
+              <span>
+                &rarr;
+                <!-- <font-awesome-icon :icon="['fa', 'arrow-right']"/> -->
+              </span>
+            </Nuxt-Link>
+          </div>
+        </div>
       </div>
-      <!-- <div class="col-12 mb-4 shadow-lg hover:shadow-xl">
-        <figure class="md:flex bg-gray-100 p-8 md:p-0">
-          <img
-            class="w-32 h-32 md:w-48 md:h-auto md:rounded-none rounded-full mx-auto bg-gray-200"
-            src="/sarah-dayan.jpg"
-            alt=""
-            width="384"
-            height="512"
-          />
-          <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
-            <blockquote>
-              <p class="text-lg font-semibold">
-                “Tailwind CSS is the only framework that I've seen scale on
-                large teams. It’s easy to customize, adapts to any design, and
-                the build size is tiny.”
-              </p>
-            </blockquote>
-            <figcaption class="font-medium">
-              <div class="text-cyan-600">Sarah Dayan</div>
-              <div class="text-gray-500">Staff Engineer, Algolia</div>
-            </figcaption>
-          </div>
-        </figure>
-      </div>
-      <div class="col-12 mb-4 shadow-lg hover:shadow-xl">
-        <figure class="md:flex bg-gray-100 p-8 md:p-0">
-          <img
-            class="w-32 h-32 md:w-48 md:h-auto md:rounded-none rounded-full mx-auto bg-gray-200"
-            src="/sarah-dayan.jpg"
-            alt=""
-            width="384"
-            height="512"
-          />
-          <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
-            <blockquote>
-              <p class="text-lg font-semibold">
-                “Tailwind CSS is the only framework that I've seen scale on
-                large teams. It’s easy to customize, adapts to any design, and
-                the build size is tiny.”
-              </p>
-            </blockquote>
-            <figcaption class="font-medium">
-              <div class="text-cyan-600">Sarah Dayan</div>
-              <div class="text-gray-500">Staff Engineer, Algolia</div>
-            </figcaption>
-          </div>
-        </figure>
-      </div> -->
     </div>
   </div>
 </template>
 
 <script>
+// import { fas } from '@fortawesome/free-solid-svg-icons'
+
 export default {
   props: {
-    items: { type: Array, required: true, default: () => [] },
-  },
+    items: { type: Array, required: true, default: () => [] }
+  }
+  // computed: {
+  //   fas() {
+  //     return fas
+  //   }
+  // }
 }
 </script>

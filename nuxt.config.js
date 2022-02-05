@@ -1,3 +1,8 @@
+// import {
+//   // PRODUCTION,
+//   I18N
+// } from './config'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -17,7 +22,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['@/assets/css/tailwind.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -34,16 +39,24 @@ export default {
     // https://color-mode.nuxtjs.org/#setup
     '@nuxtjs/color-mode',
     // Doc: https://github.com/nuxt-community/date-fns-moduleWith
-    '@nuxtjs/date-fns'
+    '@nuxtjs/date-fns',
+    // Doc: https://github.com/nuxt-community/fontawesome-module or https://github.com/FortAwesome/vue-fontawesome
+    '@nuxtjs/fontawesome'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // Doc: https://github.com/nuxt/content
-    '@nuxt/content'
+    '@nuxt/content',
+    // Doc: https://github.com/nuxt-community/i18n-module
+    // 'nuxt-i18n',
+    // Doc: https://github.com/fukuiretu/nuxt-user-agent
+    'nuxt-user-agent'
   ],
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
   /*
    ** Content module configuration
    ** See https://content.nuxtjs.org/configuration
@@ -56,44 +69,98 @@ export default {
     },
     nestedProperties: ['author.name']
   },
+
   // Tailwindcss
-  // tailwindcss: {
-  //   jit: true,
-  // },
-  // Router
-  router: {
-    middleware: 'userAgent'
+  tailwindcss: {
+    jit: true
   },
+
+  // // Router
+  // router: {
+  //   middleware: 'userAgent'
+  // },
+
+  // I18N
+  // i18n: I18N,
+
   // Generate routes
   generate: {
     routes: async () => {
       const routes = []
-      let posts = []
+      const authors = []
+      let pages = []
+      let articles = []
       let tags = []
 
       const { $content } = require('@nuxt/content')
 
-      /* Posts */
-      if (posts === null || posts.length === 0) {
-        posts = await $content('articles').where({ status: 'publish' }).fetch()
+      /* Pages */
+      if (pages === null || pages.length === 0) {
+        pages = await $content('pages').where({ showInMenu: true }).fetch()
       }
 
-      /* Post Tags */
+      /* Articles */
+      if (articles === null || articles.length === 0) {
+        articles = await $content('articles')
+          .where({ status: 'publish', category: { $ne: '' } })
+          .fetch()
+      }
+
+      /* Article Categories */
+      // if (categories === null || categories.length === 0) {
+      //   categories = await $content('articles')
+      //     .where({ status: 'publish', category: { $ne: '' } })
+      //     .fetch()
+      // }
+
+      /* Article Tags */
       if (tags === null || tags.length === 0) {
         tags = await $content('tags').fetch()
       }
 
-      /* Posts */
-      for (const post of posts) {
-        routes.push(`/article/${post.slug}`)
+      /* Pages */
+      for (const page of pages) {
+        routes.push(`/page/${page.slug}`)
       }
 
-      /* Post Tags */
+      /* Articles */
+      for (const article of articles) {
+        authors.push(article.author.name)
+        routes.push(`/article/${article.slug}`)
+        routes.push(`/article/category/${article.category.replace(' ', '_')}`)
+      }
+
+      /* Articles Authors */
+      for (const author of authors.filter(function (item, index, inputArray) {
+        return inputArray.indexOf(item) === index
+      })) {
+        routes.push(`/article/author/${author}`)
+      }
+
+      /* Articles Categories */
+      // for (const category of categories) {
+      //   routes.push(`/article/category/${category.replace(' ', '_')}`)
+      // }
+
+      /* Articles Tags */
       for (const tag of tags) {
         routes.push(`/article/tag/${tag.name.replace(' ', '_')}`)
       }
 
       return routes.sort()
+      // return routes
+    },
+
+    fallback: true // fallback to 404 page not found file
+  },
+
+  // Fontawesome
+  fontawesome: {
+    // suffix: true,
+    icons: {
+      solid: true,
+      brands: true
+      // light: true
     }
   }
 }
